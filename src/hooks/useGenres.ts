@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/api-client";
-import { CanceledError } from "axios";
-import useData from "./useData";
+import genres from "../data/genres";
+import { FetchResponse } from "../services/api-client";
 
 export interface Genre {
   id: number;
@@ -9,6 +9,13 @@ export interface Genre {
   image_background: string;
 }
 
-const useGenres = () => useData<Genre>("/genres");
+const useGenres = () =>
+  useQuery({
+    queryKey: ["genres"],
+    queryFn: () => {
+      return apiClient.get<FetchResponse<Genre>>("/genres").then((res) => res.data);
+    },
+    initialData: { count: genres.length, results: genres },
+  });
 
 export default useGenres;

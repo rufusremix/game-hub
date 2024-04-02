@@ -1,13 +1,4 @@
-import {
-  Button,
-  Heading,
-  HStack,
-  Image,
-  List,
-  ListItem,
-  Skeleton,
-  Stack,
-} from "@chakra-ui/react";
+import { Button, Heading, HStack, Image, List, ListItem, Skeleton, Stack } from "@chakra-ui/react";
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/getCroppedImageUrl";
 
@@ -28,17 +19,12 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
       {isLoading && (
         <Stack>
           {skeletons.map((skeleton) => (
-            <Skeleton
-              key={skeleton}
-              borderRadius={4}
-              height="30px"
-              marginBottom={2}
-            />
+            <Skeleton key={skeleton} borderRadius={4} height="30px" marginBottom={2} />
           ))}
         </Stack>
       )}
       <List>
-        {data.map((genre) => (
+        {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image
