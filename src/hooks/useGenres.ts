@@ -1,3 +1,5 @@
+// Fetches the game genres
+
 import { useQuery } from "@tanstack/react-query";
 import APIClient from "../services/api-client";
 import genres from "../data/genres";
@@ -15,7 +17,7 @@ const useGenres = () =>
     queryKey: ["genres"],
     queryFn: apiClient.getAll,
     staleTime: 2 * 60 * 60 * 1000, // 2h
-    initialData: { count: genres.length, results: genres, next: null },
+    initialData: genres,
   });
 
 export default useGenres;
