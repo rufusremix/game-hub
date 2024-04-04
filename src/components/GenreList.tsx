@@ -1,15 +1,26 @@
-import { Button, Heading, HStack, Image, List, ListItem, Skeleton, Stack } from "@chakra-ui/react";
+import {
+  Button,
+  Heading,
+  HStack,
+  Image,
+  List,
+  ListItem,
+  Skeleton,
+  Stack,
+} from "@chakra-ui/react";
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/getCroppedImageUrl";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenreId?: number;
 }
-const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
+const GenreList = ({ selectedGenreId, onSelectGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+
   if (error) return null;
+
   return (
     <>
       <Heading as="h1" fontSize="2xl" marginY={3}>
@@ -19,7 +30,12 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
       {isLoading && (
         <Stack>
           {skeletons.map((skeleton) => (
-            <Skeleton key={skeleton} borderRadius={4} height="30px" marginBottom={2} />
+            <Skeleton
+              key={skeleton}
+              borderRadius={4}
+              height="30px"
+              marginBottom={2}
+            />
           ))}
         </Stack>
       )}
@@ -34,7 +50,7 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
                 objectFit="cover"
               ></Image>
               <Button
-                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
                 fontSize="lg"
                 onClick={() => onSelectGenre(genre)}
                 variant="link"
