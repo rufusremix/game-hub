@@ -1,21 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "../services/api-client";
-import genres from "../data/genres";
-import { FetchResponse } from "../services/api-client";
+// Fetches the game genres
 
-export interface Genre {
-  id: number;
-  name: string;
-  image_background: string;
-}
+import { useQuery } from "@tanstack/react-query";
+import APIClient from "../services/api-client";
+import genres from "../data/genres";
+import ms from "ms";
+import { Genre } from "../entities/Genre";
+
+const apiClient = new APIClient<Genre>("/genres");
 
 const useGenres = () =>
   useQuery({
     queryKey: ["genres"],
-    queryFn: () => {
-      return apiClient.get<FetchResponse<Genre>>("/genres").then((res) => res.data);
-    },
-    initialData: { count: genres.length, results: genres },
+    queryFn: apiClient.getAll,
+    staleTime: ms("24h"),
+    initialData: genres,
   });
 
 export default useGenres;
