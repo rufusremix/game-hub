@@ -14,7 +14,9 @@ const SortSelector = () => {
     { value: "-metacritic", label: "Popularity" },
     { value: "-rating", label: "Average Rating" },
   ];
-  const currentSortOrderobj = sortOrders.find((order) => order.value === currentSortOrder);
+  const currentSortOrderobj = sortOrders.find(
+    (order) => order.value === currentSortOrder
+  );
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
@@ -22,7 +24,11 @@ const SortSelector = () => {
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (
-          <MenuItem onClick={() => setSortOrder(order.value)} key={order.value} value={order.value}>
+          <MenuItem
+            onClick={() => setSortOrder(order.value)}
+            key={order.value}
+            value={order.value}
+          >
             {order.label}
           </MenuItem>
         ))}

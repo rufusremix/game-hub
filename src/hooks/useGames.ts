@@ -21,7 +21,6 @@ const useGames = () => {
           page: pageParam,
         },
       }),
-    keepPreviousData: true,
     staleTime: ms("24h"),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.next ? allPages.length + 1 : undefined;
